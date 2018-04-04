@@ -18,12 +18,40 @@ public class Consumer extends Thread {
     @Override
     public void run() {
         System.out.println("Running Consumer...");
-        char product;
+        String product, result;
+        String[] tokens;
         
         for(int i=0 ; i<5 ; i++) {
             product = this.buffer.consume();
             //System.out.println("Consumer consumed: " + product);
-            Buffer.print("Consumer"+ this.id +"consumed: " + product );
+            product = product.substring(1, product.length() - 1);
+            tokens = product.split(" ");
+            //for (String token:tokens) {
+            //    System.out.print(token + " ");
+            //}
+            //System.out.println();
+            try {
+                switch(tokens[0]) {
+                    case "*":
+                        result = String.valueOf(Integer.valueOf(tokens[1]) * Integer.valueOf(tokens[2]));
+                        break;
+                    case "/":
+                        result = String.valueOf(Integer.valueOf(tokens[1]) / Integer.valueOf(tokens[2]));
+                        break;
+                    case "+":
+                        result = String.valueOf(Integer.valueOf(tokens[1]) + Integer.valueOf(tokens[2]));
+                        break;
+                    case "-":
+                        result = String.valueOf(Integer.valueOf(tokens[1]) - Integer.valueOf(tokens[2]));
+                        break;
+                    default:
+                        result = "Undefined";
+                        break; 
+                }
+            } catch(ArithmeticException ae) {
+                result = "Undefined";
+            }
+            Buffer.print("Consumer["+ this.id +"] consumed: (" + product + ") resulting in = " + result);
             try {
                 Thread.sleep(this.seconds * 1000);
             } catch (InterruptedException ex) {
