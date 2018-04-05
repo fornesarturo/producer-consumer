@@ -7,12 +7,12 @@ import java.util.logging.Logger;
 public class Consumer extends Thread {
     Buffer buffer;
     int id;
-    int seconds;
+    long milliseconds;
     
-    Consumer(Buffer buffer, int id, int seconds) {
+    Consumer(Buffer buffer, int id, long milliseconds) {
         this.buffer = buffer;
         this.id = id;
-        this.seconds = seconds;
+        this.milliseconds = milliseconds;
     }
     
     @Override
@@ -53,7 +53,7 @@ public class Consumer extends Thread {
             }
             Buffer.print("Consumer["+ this.id +"] consumed: (" + product + ") resulting in = " + result);
             try {
-                Thread.sleep(this.seconds * 1000);
+                Thread.sleep(this.milliseconds);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
             }

@@ -30,11 +30,12 @@ public class ProducerConsumer {
         
         Buffer buffer = new Buffer();
         
-        Producer producer = new Producer(buffer, 0, 10);
-        producer.start();
-        Random r = new Random(System.currentTimeMillis());
-        for (int i = 0; i < 3; i++) {
-            new Consumer(buffer, i, r.nextInt(5)).start();
+        for(int i = 0; i < producerQty; i++) {
+            new Producer(buffer, minRange, maxRange, producerMillis).start();
+        }
+        
+        for (int i = 0; i < consumerQty; i++) {
+            new Consumer(buffer, i, consumerMillis).start();
         }
     }
 }

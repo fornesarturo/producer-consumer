@@ -8,11 +8,13 @@ import java.util.logging.Logger;
 public class Producer extends Thread {
     Buffer buffer;
     int minValue, maxValue;
+    long milliseconds;
     
-    Producer(Buffer buffer, int minValue, int maxValue) {
+    Producer(Buffer buffer, int minValue, int maxValue, long milliseconds) {
         this.buffer = buffer;
         this.minValue = minValue;
         this.maxValue = maxValue;
+        this.milliseconds = milliseconds;
     }
     
     @Override

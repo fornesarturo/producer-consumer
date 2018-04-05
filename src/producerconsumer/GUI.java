@@ -53,6 +53,7 @@ public class GUI extends javax.swing.JFrame {
 
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
+        jTextField1.setText("1000");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
@@ -68,6 +69,7 @@ public class GUI extends javax.swing.JFrame {
 
         jSpinner2.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
+        jTextField2.setText("1000");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -188,7 +190,6 @@ public class GUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        System.out.println(evt.getActionCommand());
         this.startProgram = true;
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -275,11 +276,11 @@ public class GUI extends javax.swing.JFrame {
     }
     
     public int getConsumerQty() {
-        return (int) this.jSpinner1.getValue();
+        return (int) this.jSpinner2.getValue();
     }
     
     public int getProducerQty() {
-        return (int) this.jSpinner2.getValue();
+        return (int) this.jSpinner1.getValue();
     }
     
     public long getProducerMillis() {
