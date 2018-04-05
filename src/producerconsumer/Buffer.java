@@ -10,9 +10,11 @@ public class Buffer {
     
     // private char buffer;
     private Queue<String> bufferQ;
+    private int maxSize;
     
-    Buffer() {
+    Buffer(int maxSize) {
         // this.buffer = 0;
+        this.maxSize = maxSize;
         this.bufferQ = new LinkedList<>();
     }
     
@@ -38,7 +40,7 @@ public class Buffer {
     }
     
     synchronized void produce(String product) {
-        if(this.bufferQ.size() >= 4) {
+        if(this.bufferQ.size() >= this.maxSize) {
             try {
                 wait();
             } catch (InterruptedException ex) {

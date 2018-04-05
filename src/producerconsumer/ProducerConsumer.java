@@ -25,10 +25,11 @@ public class ProducerConsumer {
         int maxRange = gui.getMaxRange();
         int consumerQty = gui.getConsumerQty();
         int producerQty = gui.getProducerQty();
+        int bufferSize = gui.getBufferSize();
         long consumerMillis = gui.getConsumerMillis();
         long producerMillis = gui.getProducerMillis();
         
-        Buffer buffer = new Buffer();
+        Buffer buffer = new Buffer(bufferSize);
         
         for(int i = 0; i < producerQty; i++) {
             new Producer(buffer, minRange, maxRange, producerMillis).start();
