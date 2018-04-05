@@ -1,25 +1,23 @@
 
 package producerconsumer;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Buffer {
     
-    private char buffer;
-    private Queue<Character> bufferQ;
+    // private char buffer;
+    private Queue<String> bufferQ;
     
     Buffer() {
-        this.buffer = 0;
+        // this.buffer = 0;
         this.bufferQ = new LinkedList<>();
     }
     
-    synchronized char consume() {
-        char product = 0;
+    synchronized String consume() {
+        String product;
         
         while(true) {
             if(this.bufferQ.isEmpty()) {
@@ -39,7 +37,7 @@ public class Buffer {
         return product;
     }
     
-    synchronized void produce(char product) {
+    synchronized void produce(String product) {
         if(this.bufferQ.size() >= 4) {
             try {
                 wait();
