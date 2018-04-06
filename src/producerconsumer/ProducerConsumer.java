@@ -29,14 +29,14 @@ public class ProducerConsumer {
         long consumerMillis = gui.getConsumerMillis();
         long producerMillis = gui.getProducerMillis();
         
-        Buffer buffer = new Buffer(bufferSize);
+        Buffer buffer = new Buffer(bufferSize, gui);
         
         for(int i = 0; i < producerQty; i++) {
-            new Producer(buffer, minRange, maxRange, producerMillis).start();
+            new Producer(buffer, minRange, maxRange, producerMillis, gui, i).start();
         }
         
         for (int i = 0; i < consumerQty; i++) {
-            new Consumer(buffer, i, consumerMillis).start();
+            new Consumer(buffer, i, consumerMillis, gui).start();
         }
     }
 }

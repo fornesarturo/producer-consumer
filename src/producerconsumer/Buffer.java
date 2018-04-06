@@ -5,21 +5,24 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 public class Buffer {
     
     // private char buffer;
-    private Queue<String> bufferQ;
+    private Queue<Item> bufferQ;
     private int maxSize;
+    javax.swing.table.DefaultTableModel toConsumeModel;
     
-    Buffer(int maxSize) {
+    Buffer(int maxSize, GUI gui) {
         // this.buffer = 0;
         this.maxSize = maxSize;
         this.bufferQ = new LinkedList<>();
+        this.toConsumeModel = (DefaultTableModel) gui.getToConsumeTable().getModel();
     }
     
-    synchronized String consume() {
-        String product;
+    synchronized Item consume() {
+        Item product;
         
         while(true) {
             if(this.bufferQ.isEmpty()) {
@@ -35,11 +38,10 @@ public class Buffer {
         }
         product = this.bufferQ.poll();
         notifyAll();
-        
         return product;
     }
     
-    synchronized void produce(String product) {
+    synchronized void produce(Item product) {
         if(this.bufferQ.size() >= this.maxSize) {
             try {
                 wait();
