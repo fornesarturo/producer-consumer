@@ -29,6 +29,19 @@ public class ProducerConsumer {
         long consumerMillis = gui.getConsumerMillis();
         long producerMillis = gui.getProducerMillis();
         
+        SyncModel consumedModel = new SyncModel();
+        consumedModel.addColumn("Produced By");
+        consumedModel.addColumn("Consumed By");
+        consumedModel.addColumn("Operation");
+        consumedModel.addColumn("Result");
+        gui.getConsumedTable().setModel(consumedModel);
+        
+        SyncModel toConsumeModel = new SyncModel();
+        toConsumeModel.addColumn("Produced By");
+        toConsumeModel.addColumn("Operation");
+        gui.getToConsumeTable().setModel(toConsumeModel);
+        
+        
         Buffer buffer = new Buffer(bufferSize, gui);
         
         for(int i = 0; i < producerQty; i++) {

@@ -13,9 +13,13 @@ package producerconsumer;
 public class Item {
     public int producedBy;
     public String operation;
+    public int consumedBy;
+    public String result;
     
     public Item(int producedBy, String operation) {
         this.producedBy = producedBy;
         this.operation = operation;
+        this.consumedBy = -1;
+        this.result = "";
     }
 }

@@ -43,9 +43,7 @@ public class Producer extends Thread {
             this.buffer.produce(new Item(this.id, product));
             //System.out.println("Producer produced: " + product);
             Buffer.print("Producer produced: " + product);
-            
-            this.jTableModel.addRow(new Object[]{this.id, product});
-            
+                        
             try {
                 Thread.sleep(this.milliseconds);
             } catch (InterruptedException ex) {

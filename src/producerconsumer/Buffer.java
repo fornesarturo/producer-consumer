@@ -5,20 +5,24 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.table.DefaultTableModel;
 
 public class Buffer {
     
     // private char buffer;
-    private Queue<Item> bufferQ;
-    private int maxSize;
-    javax.swing.table.DefaultTableModel toConsumeModel;
+    private final Queue<Item> bufferQ;
+    private final int maxSize;
+    SyncModel toConsumeModel;
+    javax.swing.JProgressBar progressBar;
+    javax.swing.JLabel counter;
+    
     
     Buffer(int maxSize, GUI gui) {
         // this.buffer = 0;
         this.maxSize = maxSize;
         this.bufferQ = new LinkedList<>();
-        this.toConsumeModel = (DefaultTableModel) gui.getToConsumeTable().getModel();
+        this.toConsumeModel = (SyncModel) gui.getToConsumeTable().getModel();
+        this.progressBar = gui.getProgressBar();
+        this.counter = gui.getCounter();
     }
     
     synchronized Item consume() {
@@ -38,19 +42,30 @@ public class Buffer {
         }
         product = this.bufferQ.poll();
         notifyAll();
+        double percentage = ((double) this.bufferQ.size()/this.maxSize)*100;
+        this.progressBar.setValue((int) percentage);
+        this.counter.setText(String.valueOf(Integer.parseInt(this.counter.getText()) +1));
+        this.toConsumeModel.removeRow(0);
         return product;
     }
     
     synchronized void produce(Item product) {
-        if(this.bufferQ.size() >= this.maxSize) {
-            try {
-                wait();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
+        while(true) {
+            if(this.bufferQ.size() >= this.maxSize) {
+                try {
+                    wait();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Buffer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            else {
+                break;
             }
         }
         this.bufferQ.offer(product);
-        
+        this.toConsumeModel.addRow(new Object[]{product.producedBy, product.operation});
+        double percentage = ((double) this.bufferQ.size()/this.maxSize)*100;
+        this.progressBar.setValue((int) percentage);
         notifyAll();
     }
     
