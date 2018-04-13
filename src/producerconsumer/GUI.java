@@ -40,7 +40,6 @@ public class GUI extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jSpinner3 = new javax.swing.JSpinner();
         jSpinner4 = new javax.swing.JSpinner();
-        jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -54,6 +53,7 @@ public class GUI extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("SETUP"); // NOI18N
@@ -64,7 +64,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel1.setText("Producers: ");
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jTextField1.setText("1000");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +80,7 @@ public class GUI extends javax.swing.JFrame {
 
         jLabel4.setText("Consumers:");
 
-        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jTextField2.setText("1000");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -123,13 +123,6 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("START");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
         jLabel6.setText("Size of queue:");
 
         jTextField3.setText("10");
@@ -148,10 +141,6 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(159, 159, 159)
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,7 +164,7 @@ public class GUI extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGap(0, 4, Short.MAX_VALUE)
                                 .addComponent(jLabel6)
                                 .addGap(27, 27, 27))
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -221,9 +210,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSpinner4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
-                .addComponent(jButton2)
-                .addGap(23, 23, 23))
+                .addGap(108, 108, 108))
         );
 
         jTabbedPane1.addTab("SETTINGS", jPanel1);
@@ -314,22 +301,35 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
                     .addComponent(jLabel11))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("RESULTS", jPanel2);
+
+        jButton2.setText("START");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(167, 167, 167)
+                .addComponent(jButton2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
 
         pack();
@@ -372,6 +372,10 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         char enter = evt.getKeyChar();
         if(!(Character.isDigit(enter))){
+            evt.consume();
+        }
+        else if(this.jTextField3.getText().length() == 0 && Character.getNumericValue(enter) == 0) {
+            System.out.println("HELLO");
             evt.consume();
         }
     }//GEN-LAST:event_jTextField3KeyTyped
@@ -486,15 +490,33 @@ public class GUI extends javax.swing.JFrame {
     }
     
     public long getProducerMillis() {
-        return (long) Long.parseLong(this.jTextField1.getText());
+        if(this.jTextField1.getText().length() == 0) {
+            this.jTextField1.setText("0");
+            return 0;
+        }
+        else {
+            return (long) Long.parseLong(this.jTextField1.getText());
+        }
     }
     
     public long getConsumerMillis() {
-        return (long) Long.parseLong(this.jTextField2.getText());
+        if(this.jTextField2.getText().length() == 0) {
+            this.jTextField2.setText("0");
+            return 0;
+        }
+        else {
+            return (long) Long.parseLong(this.jTextField2.getText());
+        }
     }
     
     public int getBufferSize() {
-        return (int) Integer.parseInt(this.jTextField3.getText());
+        if(this.jTextField3.getText().length() == 0 || (int) Integer.valueOf(this.jTextField3.getText()) == 0) {
+            this.jTextField3.setText("1");
+            return 1;
+        }
+        else {
+            return (int) Integer.parseInt(this.jTextField3.getText());
+        }
     }
     
     public javax.swing.JTable getToConsumeTable() {

@@ -1,6 +1,7 @@
 
 package producerconsumer;
 
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -45,7 +46,8 @@ public class Consumer extends Thread {
                         result = String.valueOf(Integer.valueOf(tokens[1]) * Integer.valueOf(tokens[2]));
                         break;
                     case "/":
-                        result = String.valueOf(Integer.valueOf(tokens[1]) / Integer.valueOf(tokens[2]));
+                        DecimalFormat df = new DecimalFormat("0.##");
+                        result = df.format(Integer.valueOf(tokens[1]) / (double) Integer.valueOf(tokens[2]));
                         break;
                     case "+":
                         result = String.valueOf(Integer.valueOf(tokens[1]) + Integer.valueOf(tokens[2]));
